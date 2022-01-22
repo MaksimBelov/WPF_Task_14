@@ -1,0 +1,166 @@
+﻿<Window x:Class="WPF_Task_14.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Task_14"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" MaxWidth="400">
+    <Window.Resources>
+        <DataTemplate x:Key="myTemplate">
+            <Border x:Name="border"
+                    BorderThickness="1"
+                    Padding="5"
+                    Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.RowSpan="3"
+                           Source="{Binding Path=ProductImage}"/>
+                    <TextBlock Text="Наименование:"
+                               Grid.Row="0"
+                               Grid.Column="1"/>
+                    <TextBlock Text="{Binding Path=ProductName}"
+                               x:Name="txtBlockProductName"
+                               Grid.Row="0"
+                               Grid.Column="2"/>
+                    <TextBlock Text="Цена:"
+                               Grid.Row="1"
+                               Grid.Column="1"/>
+                    <TextBlock Text="{Binding Path=ProductCost}"
+                               x:Name="txtBlockProductCost"
+                               Grid.Row="1"
+                               Grid.Column="2"/>
+                    <TextBlock Text="Тип:"
+                               Grid.Row="2"
+                               Grid.Column="1"/>
+                    <TextBlock Text="{Binding Path=ProductType}"
+                               x:Name="txtBlockProductType"
+                               Grid.Row="2"
+                               Grid.Column="2"/>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=ProductType }">
+                    <DataTrigger.Value>
+                        <local:ProductTypes>Meal</local:ProductTypes>
+                    </DataTrigger.Value>
+                    <Setter TargetName="border"
+                            Property="BorderBrush"
+                            Value="Red"/>
+                    <Setter TargetName="txtBlockProductName"
+                            Property="Foreground"
+                            Value="Red"/>
+                    <Setter TargetName="txtBlockProductCost"
+                            Property="Foreground"
+                            Value="Red"/>
+                    <Setter TargetName="txtBlockProductType"
+                            Property="Foreground"
+                            Value="Red"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=ProductType }">
+                    <DataTrigger.Value>
+                        <local:ProductTypes>Appliances</local:ProductTypes>
+                    </DataTrigger.Value>
+                    <Setter TargetName="border"
+                            Property="BorderBrush"
+                            Value="Blue"/>
+                    <Setter TargetName="txtBlockProductName"
+                            Property="Foreground"
+                            Value="Blue"/>
+                    <Setter TargetName="txtBlockProductCost"
+                            Property="Foreground"
+                            Value="Blue"/>
+                    <Setter TargetName="txtBlockProductType"
+                            Property="Foreground"
+                            Value="Blue"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+
+    <StackPanel>
+        <TextBlock x:Name="productTitle"
+                   FontSize="20"
+                   Text="Список продуктов:"
+                   HorizontalAlignment="Center"/>
+        <ListBox x:Name="lstBox"
+                 Width="350"
+                 Margin="10"
+                 ItemTemplate="{StaticResource myTemplate}"
+                 HorizontalContentAlignment="Stretch"/>
+        <Border x:Name="border"
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    Padding="5"
+                    Margin="5"
+                    Width="350">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Наименование:"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Margin="3"
+                           Padding="3"/>
+                <TextBox x:Name="txtBoxProductName"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Margin="3"
+                         Padding="3"/>
+                <TextBlock Text="Цена:"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="3"
+                           Padding="3"/>
+                <TextBox x:Name="txtBoxProductCost"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Margin="3"
+                           Padding="3"/>
+                <TextBlock Text="Тип:"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           Margin="3"
+                           Padding="3"/>
+                <ComboBox x:Name="cmbBoxProductType"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="3"
+                           Padding="3">
+                    <ComboBoxItem Content="Meal" IsSelected="True"/>
+                    <ComboBoxItem Content="Appliances"/>
+                </ComboBox>
+                <Button x:Name="buttonAdd"
+                        Content="Добавить новый товар"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="3"
+                        Padding="3"
+                        Width="150"
+                        Click="buttonAdd_Click"/>
+            </Grid>
+
+        </Border>
+    </StackPanel>
+</Window>
